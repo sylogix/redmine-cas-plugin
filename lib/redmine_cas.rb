@@ -134,9 +134,9 @@ class RedmineCas
     def user_attributes_by_session(session)
       attributes = {}
       if extra_attributes = session[:cas_extra_attributes]
-        attributes[:firstname] = extra_attributes[:givenName].first if extra_attributes[:givenName] && extra_attributes[:givenName].first
-        attributes[:lastname] = extra_attributes[:sn].first if extra_attributes[:sn] && extra_attributes[:sn].first
-        attributes[:mail] = extra_attributes[:mail].first if extra_attributes[:mail] &&  extra_attributes[:mail].first
+        attributes[:firstname] = Array.wrap(extra_attributes[:givenName]).first if extra_attributes[:givenName] && !Array.wrap(extra_attributes[:givenName]).empty?
+        attributes[:lastname] = Array.wrap(extra_attributes[:sn]).first if extra_attributes[:sn] && !Array.wrap(extra_attributes[:sn]).empty?
+        attributes[:mail] = Array.wrap(extra_attributes[:mail]).first if extra_attributes[:mail] && !Array.wrap(extra_attributes[:mail]).empty?
       end
       attributes
     end
